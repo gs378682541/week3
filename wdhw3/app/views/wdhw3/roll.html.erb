@@ -1,0 +1,43 @@
+<h1><%= @rollTitle %></h1>
+<hr>
+<%= image_tag(@imageDice[@numDicechoose[0]], :size => "226x223")%>
+<%= image_tag(@imageDice[@numDicechoose[1]], :size => "226x223")%>
+<% if $numCheck == 0 %>
+  <% if @numSum == 7 || @numSum == 11%>
+    <h1>YOU WIN!</h1>
+    <%= form_tag(dice_url) do%>
+      <p><%= submit_tag :"Start Over!"%></p>
+    <% end %>
+  <% elsif @numSum == 2 || @numSum == 3 || @numsum == 12%>
+    <h1>YOU LOSE.</h1>
+    <%= form_tag(dice_url) do%>
+      <p><%= submit_tag :"Play again."%></p>
+    <% end %>
+  <% else%>
+    <h1>Your point is <%= @numSum%></h1>
+    <h2>Now try to get <%=@numSum%> again before you roll a 7.</h2>
+    <% $numCheck=@numSum %>
+    <%= form_tag(roll_url) do%>
+      <p><%= submit_tag :"Roll the dice.", :point => $numCheck%></p>
+    <% end%>
+  <% end%>
+<%else %>
+  <% if @numSum == 7%>
+    <h1>YOU LOSE.</h1>
+    <%= form_tag(dice_url) do%>
+      <p><%= submit_tag :"Play again."%></p>
+      <% $numCheck=0 %>
+    <% end %>
+  <% elsif @numSum == $numCheck%>
+    <h1>YOU WIN!</h1>
+    <%= form_tag(dice_url) do%>
+      <p><%= submit_tag :"Start Over!"%></p>
+      <% $numCheck = 0 %>
+    <% end%>
+  <% else%>
+    <h1>Your point is <%= $numCheck%>.You can roll again.</h1>
+    <%= form_tag(roll_url) do%>
+      <p><%= submit_tag :"Roll again"%></p>
+    <% end%>
+  <% end%>
+<% end%>

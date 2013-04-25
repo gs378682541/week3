@@ -1,0 +1,24 @@
+<h1><%= @rpsTitle %></h1>
+
+<hr>
+
+<h1><%= @rpsSubtitle %></h1>
+<% if !params[:choose].present? %>
+<%= link_to image_tag('rock.jpg', :size => "320x320"), :controller => 'wdhw3', :action => 'rps', :choose => 'rock'%>
+<%= link_to image_tag('paper.png', :size => "320x320"), :controller => 'wdhw3', :action => 'rps', :choose => 'paper'%>
+<%= link_to image_tag('scissors.jpg', :size => "320x320"), :controller => 'wdhw3', :action => 'rps', :choose => 'scissors'%>
+<% elsif ((params[:choose] == 'rock' && @num == 0)||(params[:choose] == 'paper' && @num == 1)||(params[:choose] == 'scissors' && @num == 2))%>
+<p><%= link_to "Play again!", rps_path%></p>
+<%= image_tag(@image[@num], :size => "320x320")%>
+<%= image_tag(@image[@num], :size => "320x320")%>
+<% elsif ((params[:choose] == 'rock' && @num == 1)||(params[:choose] == 'paper' && @num == 2)||(params[:choose] == 'scissors' && @num == 0))%>
+<p><%= link_to "Play again!", rps_path%></p>
+<%= image_tag(@image[@num-1], :size => "320x320")%>
+<%= image_tag(@image[@num], :size => "320x320")%>
+<% elsif ((params[:choose] == 'rock' && @num == 2)||(params[:choose] == 'paper' && @num == 0)||(params[:choose] == 'scissors' && @num == 1))%>
+<p><%= link_to "Play again!", rps_path%></p>
+<%= image_tag(@image[@num-2], :size => "320x320")%>
+<%= image_tag(@image[@num], :size => "320x320")%>
+<% end %>
+
+
